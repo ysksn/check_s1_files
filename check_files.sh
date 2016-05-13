@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 OUT_FILE=/Users/y-kabuto/Desktop/out
 APP_PATH=/Users/y-kabuto/apps/check_s1_files
