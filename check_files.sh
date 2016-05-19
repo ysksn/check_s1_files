@@ -21,11 +21,11 @@ do
 
   for CHECKED_DIR in `cat $DIR_PATH/$DEPTH`
   do
-    find $CHECKED_DIR -maxdepth $MAX_DEPTH -type f | xargs ls -l >> $TMP_TO_SORT
+    find $CHECKED_DIR -maxdepth $MAX_DEPTH -type f -mtime -"$1"h | xargs ls -l >> $TMP_TO_SORT
   done
 done
 
 cat $TMP_TO_SORT | sort | uniq > $TMP_NEW
 echo "executed at `date`\n" >> $OUT_FILE
-diff -W 1000 -y $TMP_OLD $TMP_NEW | grep "|" | sed -e "s/^.*\s\(.*\)\s\(.*\)\s\(.*\)\s\(.*\)$/\4 updated at \1\/\2 \3/" >> $OUT_FILE
+cat $TMP_NEW | sed -e "s/^.* \(.*\) \(.*\) \(.*\) \(.*\)$/\4 updated at \1\/\2 \3/" >> $OUT_FILE
 echo "----------------------------------------------------------------------------------------------------------------" >> $OUT_FILE
